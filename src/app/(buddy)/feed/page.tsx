@@ -1,4 +1,4 @@
-import { FeedPage } from "@/features/buddyscript/feed/feed-page";
+import { FeedPage } from "./_components/feed-page";
 
 export const metadata = { title: "Feed" };
 

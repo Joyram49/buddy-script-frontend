@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 
 export const metadata: Metadata = {
   title: {
@@ -8,16 +7,10 @@ export const metadata: Metadata = {
   },
 };
 
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export default function BuddyLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className={poppins.className}>{children}</div>;
+  return <div className="no-scrollbar">{children}</div>;
 }
