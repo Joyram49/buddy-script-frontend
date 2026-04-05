@@ -46,6 +46,22 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* BuddyScript template (Tailwind-only rebuild) */
+  --color-buddy-canvas: #f0f2f5;
+  --color-buddy-surface: #ffffff;
+  --color-buddy-muted: #767676;
+  --color-buddy-heading: #312000;
+  --color-buddy-text: #2d3748;
+  --color-buddy-label: #4a5568;
+  --color-buddy-accent: #1890ff;
+  --color-buddy-border: #e8e8e8;
+  --color-buddy-divider: #dfdfdf;
+  --color-buddy-subtle: #c4c4c4;
+  --color-buddy-input: #f5f5f5;
+  --color-buddy-dark-bg: #112032;
+  --color-buddy-dark-surface: #232e42;
+  --color-buddy-green: #0acf83;
 }
 
 :root {
