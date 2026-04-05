@@ -1,4 +1,4 @@
-import { RegistrationPage } from "@/features/buddyscript/registration-page";
+import { RegistrationPage } from "./_components/RegistrationPage";
 
 export const metadata = { title: "Registration" };
 
