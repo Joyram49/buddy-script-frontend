@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useMemo, useState } from "react";
 
+import { clearClientSession } from "@/lib/auth/clientSession";
 import type { AuthSession, User } from "@/types/auth/auth.type";
 
 const ACCESS_TOKEN_KEY = "accessToken";
@@ -25,10 +26,7 @@ function persistSession(session: AuthSession) {
 }
 
 function clearPersistedSession() {
-  window.localStorage.removeItem(ACCESS_TOKEN_KEY);
-  window.localStorage.removeItem("authUser");
-  document.cookie = "access_token=; path=/; max-age=0; samesite=lax";
-  document.cookie = "accessToken=; path=/; max-age=0; samesite=lax";
+  clearClientSession();
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

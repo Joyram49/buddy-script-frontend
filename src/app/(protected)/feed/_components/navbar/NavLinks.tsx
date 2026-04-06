@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { buddyAsset } from "@/features/buddyscript/assets";
 import { NotificationPanel } from "./NotificationPanel";
+import { useAuth } from "@/context/auth/auth.context";
+import { logoutAction } from "@/services/auth/authService";
+import { toast } from "sonner";
 
 import {
   DropdownMenu,
@@ -19,12 +22,25 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 
 const NavLinks = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { clearSession } = useAuth();
 
   const navItemClass = (href: string) =>
     cn(
       "group rounded-lg p-2 transition-all duration-200 hover:bg-black/5 dark:hover:bg-white/10",
       pathname === href ? "text-buddy-accent" : "text-buddy-text/60 hover:text-buddy-accent",
     );
+
+  async function handleLogout() {
+    const result = await logoutAction();
+    if (!result.success) {
+      toast.error(result.message || "Logout failed");
+      return;
+    }
+    clearSession();
+    toast.success("Logged out successfully");
+    router.push("/login");
+  }
 
   return (
     <nav className="flex shrink-0 items-center gap-6">
@@ -212,7 +228,7 @@ const NavLinks = () => {
               className="not-data-[variant=destructive]:focus:**:text-buddy-accent hover:bg-buddy-canvas focus:bg-buddy-canvas data-highlighted:bg-buddy-canvas cursor-pointer dark:hover:bg-white/10 dark:focus:bg-white/10 dark:data-highlighted:bg-white/10"
             >
               <Link
-                className="group font-poppins text-buddy-text dark:text-buddy-heading flex items-center justify-between text-base leading-[1.2] font-medium transition-all duration-200"
+                className="group font-poppins text-buddy-text dark:text-buddy-heading flex w-full items-center justify-between text-base leading-[1.2] font-medium transition-all duration-200"
                 href="/profile"
               >
                 <span className="bg-buddy-accent/10 mr-2 inline-block w-fit rounded-full p-[11px]">
@@ -235,10 +251,7 @@ const NavLinks = () => {
                 <span className="text-buddy-label group-hover:text-buddy-accent z-1 inline-block flex-1">
                   Settings
                 </span>
-                <button
-                  type="submit"
-                  className="border-none bg-transparent outline-none focus:outline-none"
-                >
+                <span className="border-none bg-transparent outline-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="4"
@@ -254,7 +267,7 @@ const NavLinks = () => {
                       opacity=".5"
                     />
                   </svg>
-                </button>
+                </span>
               </Link>
             </DropdownMenuItem>
 
@@ -263,8 +276,8 @@ const NavLinks = () => {
               className="not-data-[variant=destructive]:focus:**:text-buddy-accent hover:bg-buddy-canvas focus:bg-buddy-canvas data-highlighted:bg-buddy-canvas cursor-pointer dark:hover:bg-white/10 dark:focus:bg-white/10 dark:data-highlighted:bg-white/10"
             >
               <Link
-                className="group font-poppins text-buddy-text dark:text-buddy-heading flex items-center justify-between text-base leading-[1.2] font-medium transition-all duration-200"
                 href="#"
+                className="group font-poppins text-buddy-text dark:text-buddy-heading flex w-full items-center justify-between text-base leading-[1.2] font-medium transition-all duration-200"
               >
                 <span className="bg-buddy-accent/10 mr-2 inline-block w-fit rounded-full p-[11px]">
                   <svg
@@ -295,10 +308,7 @@ const NavLinks = () => {
                 <span className="text-buddy-label group-hover:text-buddy-accent z-1 inline-block flex-1">
                   Help & Support
                 </span>
-                <button
-                  type="submit"
-                  className="border-none bg-transparent outline-none focus:outline-none"
-                >
+                <span className="border-none bg-transparent outline-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="4"
@@ -314,17 +324,15 @@ const NavLinks = () => {
                       opacity=".5"
                     />
                   </svg>
-                </button>
+                </span>
               </Link>
             </DropdownMenuItem>
 
-            <DropdownMenuItem
-              asChild
-              className="not-data-[variant=destructive]:focus:**:text-buddy-accent hover:bg-buddy-canvas focus:bg-buddy-canvas data-highlighted:bg-buddy-canvas cursor-pointer dark:hover:bg-white/10 dark:focus:bg-white/10 dark:data-highlighted:bg-white/10"
-            >
-              <Link
-                className="group font-poppins text-buddy-text dark:text-buddy-heading flex items-center justify-between text-base leading-[1.2] font-medium transition-all duration-200"
-                href="#"
+            <DropdownMenuItem className="not-data-[variant=destructive]:focus:**:text-buddy-accent hover:bg-buddy-canvas focus:bg-buddy-canvas data-highlighted:bg-buddy-canvas cursor-pointer dark:hover:bg-white/10 dark:focus:bg-white/10 dark:data-highlighted:bg-white/10">
+              <button
+                type="button"
+                className="group font-poppins text-buddy-text dark:text-buddy-heading flex w-full items-center justify-between text-base leading-[1.2] font-medium transition-all duration-200"
+                onClick={handleLogout}
               >
                 <span className="bg-buddy-accent/10 mr-2 inline-block w-fit rounded-full p-[11px]">
                   <svg
@@ -348,10 +356,7 @@ const NavLinks = () => {
                 <span className="text-buddy-label group-hover:text-buddy-accent z-1 inline-block flex-1">
                   Logout
                 </span>
-                <button
-                  type="submit"
-                  className="border-none bg-transparent outline-none focus:outline-none"
-                >
+                <span className="border-none bg-transparent outline-none focus:outline-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="4"
@@ -367,8 +372,8 @@ const NavLinks = () => {
                       opacity=".5"
                     />
                   </svg>
-                </button>
-              </Link>
+                </span>
+              </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -39,6 +39,8 @@ export interface CommentData {
   reactionCount: number;
   /** Current viewer's reaction to this comment */
   viewerReaction: ReactionType;
+  /** Nested replies of this comment */
+  replies?: CommentData[];
 }
 
 export interface PostData {
@@ -47,7 +49,7 @@ export interface PostData {
   createdAt: string; // ISO string
   /** e.g. "Public" | "Friends" */
   audience: string;
-  title?: string;
+  content: string;
   media: MediaItem[];
   reactionSummary: ReactionSummary;
   commentCount: number;

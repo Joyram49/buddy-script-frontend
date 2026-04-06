@@ -33,7 +33,7 @@ const INITIAL_POST: PostData = {
   },
   createdAt: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
   audience: "Public",
-  title: "-Healthy Tracking App",
+  content: "-Healthy Tracking App",
   media: [
     { url: "TimelineImg", alt: "Timeline" }, // static asset key
     { url: "Img2" },

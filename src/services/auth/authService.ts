@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { envConfig } from "@/config/envConfig";
 import { LoginWithEmailSchema, SignUpSchema } from "@/lib/zod/auth/auth.validation";
 import { deleteCookie } from "cookies-next";
 import { cookies } from "next/headers";
+import type { AuthSession, IMyProfile, User } from "@/types/auth/auth.type";
 import z from "zod";
 
 interface LoginUserArgs {
@@ -52,16 +52,13 @@ export const signUpAction = async ({ payload }: SignUpArgs) => {
     }
 
     return result;
-  } catch (error: any) {
-    return Error(error);
+  } catch (error) {
+    throw error;
   }
 };
 
-export const loginAction = async ({ payload }: LoginUserArgs): Promise<any> => {
+export const loginAction = async ({ payload }: LoginUserArgs): Promise<AuthSession> => {
   try {
-    console.log(payload);
-    // Defaulting to student login for now based on requirement
-    // TODO: support dynamic roles if needed
     const res = await fetch(`${envConfig.backendBaseUrl}/auth/login`, {
       method: "POST",
       headers: {
@@ -73,34 +70,27 @@ export const loginAction = async ({ payload }: LoginUserArgs): Promise<any> => {
 
     const result = await res.json();
 
-    // Check if the response indicates an error
     if (!res.ok || !result.success) {
-      return {
-        success: false,
-        message: result.message || "Login failed",
-      };
+      throw new Error(result.message || "Login failed");
     }
 
-    if (result.token) {
-      (await cookies()).set("accessToken", result.token, {
-        httpOnly: false,
-        maxAge: 7 * 24 * 60 * 60, // 7 day
-        path: "/",
-        sameSite: "lax",
-        secure: !envConfig.isDevlopment,
-      });
+    const accessToken = result?.data?.accessToken as string | undefined;
+    const user = result?.data?.user as User | undefined;
+    if (!accessToken || !user) {
+      throw new Error("Invalid login response from server");
     }
 
-    return {
-      success: true,
-      message: "Logged in successfully",
-      data: result.user,
-    };
-  } catch (error: any) {
-    return {
-      success: false,
-      message: error?.message || "Login failed",
-    };
+    (await cookies()).set("accessToken", accessToken, {
+      httpOnly: false,
+      maxAge: 7 * 24 * 60 * 60,
+      path: "/",
+      sameSite: "lax",
+      secure: !envConfig.isDevlopment,
+    });
+
+    return { accessToken, user };
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "Login failed");
   }
 };
 
@@ -113,60 +103,41 @@ export const logoutAction = async (): Promise<{
     cookieStore.delete("accessToken");
 
     return { success: true, message: "Logged out successfully" };
-  } catch (error: any) {
-    return { success: false, message: error?.message || "Logout failed" };
+  } catch (error) {
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Logout failed",
+    };
   }
 };
 
 // get current user
-export const getCurrentUser = async (): Promise<any> => {
+export const getCurrentUser = async (): Promise<IMyProfile> => {
   try {
     const token = await getAccessToken();
 
     if (!token || token === "undefined" || token === "null") {
-      return {
-        success: false,
-        message: "No valid access token found",
-      };
+      throw new Error("No valid access token found");
     }
 
     const res = await fetch(`${envConfig.backendBaseUrl}/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      // Adding cache control to prevent unnecessary duplicate requests
-      next: { revalidate: 300 }, // 5 minutes cache
+      next: { revalidate: 300 },
     });
+    const result = await res.json().catch(() => ({}));
 
-    if (!res.ok) {
-      const result = await res.json().catch(() => ({}));
-      return {
-        success: false,
-        message: result.message || `Failed to fetch user (Status: ${res.status})`,
-      };
+    if (!res.ok || !result.success) {
+      throw new Error(result.message || `Failed to fetch user (Status: ${res.status})`);
     }
 
-    const result = await res.json();
-
-    if (!result.success) {
-      return {
-        success: false,
-        message: result.message || "Failed to fetch user",
-      };
+    const user = result?.data?.user as IMyProfile | undefined;
+    if (!user) {
+      throw new Error("Invalid user payload from server");
     }
-
-    return {
-      success: true,
-      data: result.data?.user, // Backend returns { data: user }
-    };
-  } catch (error: any) {
-    // Handle network errors like ECONNREFUSED gracefully
-    return {
-      success: false,
-      message:
-        error.code === "ECONNREFUSED"
-          ? "Backend server is unreachable. Please check if the backend is running."
-          : error.message || "An unexpected error occurred",
-    };
+    return user;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "An unexpected error occurred");
   }
 };

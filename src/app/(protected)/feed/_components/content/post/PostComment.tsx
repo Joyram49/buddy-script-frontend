@@ -21,7 +21,8 @@ export function PostComment({ comment, viewer, onReact, onReply }: PostCommentPr
   const timeAgo = formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true });
 
   return (
-    <div className="flex gap-5">
+    <div>
+      <div className="flex gap-5">
       {/* Author avatar */}
       <Link
         href={`/profile/${comment.author.id}`}
@@ -35,7 +36,7 @@ export function PostComment({ comment, viewer, onReact, onReply }: PostCommentPr
         />
       </Link>
 
-      <div className="flex-1">
+        <div className="flex-1">
         {/* Comment bubble */}
         <div className="bg-buddy-input dark:bg-buddy-dark-surface relative mb-12 max-w-fit rounded-[18px] p-3">
           <div className="mb-1">
@@ -94,20 +95,35 @@ export function PostComment({ comment, viewer, onReact, onReply }: PostCommentPr
         </div>
 
         {/* Nested reply input */}
-        {showReplyInput && (
-          <div className="mt-4">
-            <PostCommentInput
-              viewerAvatarUrl={viewer.avatarUrl}
-              viewerName={viewer.name}
-              placeholder={`Reply to ${comment.author.name}…`}
-              onSubmit={async (body) => {
-                await onReply(comment.id, body);
-                setShowReplyInput(false);
-              }}
-            />
-          </div>
-        )}
+          {showReplyInput && (
+            <div className="mt-4">
+              <PostCommentInput
+                viewerAvatarUrl={viewer.avatarUrl}
+                viewerName={viewer.name}
+                placeholder={`Reply to ${comment.author.name}…`}
+                onSubmit={async (body) => {
+                  await onReply(comment.id, body);
+                  setShowReplyInput(false);
+                }}
+              />
+            </div>
+          )}
+        </div>
       </div>
+
+      {(comment.replies || []).length > 0 && (
+        <div className="ml-15 mt-3 flex flex-col gap-3 border-l border-dashed pl-4">
+          {(comment.replies || []).map((reply) => (
+            <PostComment
+              key={reply.id}
+              comment={reply}
+              viewer={viewer}
+              onReact={onReact}
+              onReply={onReply}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -47,9 +47,9 @@ export function PostCard({
           }}
         />
 
-        {post.title && (
+        {post.content && (
           <h4 className="text-buddy-heading dark:text-buddy-heading mb-4 text-sm leading-[21px] font-normal">
-            {post.title}
+            {post.content}
           </h4>
         )}
 

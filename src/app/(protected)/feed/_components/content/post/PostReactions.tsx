@@ -17,7 +17,7 @@ export function PostReactions({ post, commentLinkHref }: PostReactionsProps) {
   return (
     <div className="border-buddy-divider mx-6 mb-[26px] flex items-center justify-between border-b pb-4">
       {/* Reaction avatars */}
-      <div className="flex cursor-pointer items-center">
+      <div className="flex cursor-pointer items-center gap-2">
         {topReactors.map((user, i) => (
           <div
             key={user.id}
@@ -36,6 +36,7 @@ export function PostReactions({ post, commentLinkHref }: PostReactionsProps) {
             {overflow}+
           </div>
         )}
+        <span className="text-buddy-heading text-sm font-medium">{total}</span>
       </div>
 
       {/* Comment & share counts */}

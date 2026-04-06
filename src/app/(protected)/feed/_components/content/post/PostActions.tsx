@@ -64,6 +64,14 @@ interface PostActionsProps {
   onShare: IPostActions["onShare"];
 }
 
+const REACTION_OPTIONS: { label: string; value: Exclude<ReactionType, null>; emoji: string }[] = [
+  { label: "Like", value: "like", emoji: "👍" },
+  { label: "Love", value: "love", emoji: "❤️" },
+  { label: "Haha", value: "haha", emoji: "😆" },
+  { label: "Sad", value: "sad", emoji: "😢" },
+  { label: "Angry", value: "angry", emoji: "😡" },
+];
+
 export function PostActions({
   postId,
   viewerReaction,
@@ -71,24 +79,40 @@ export function PostActions({
   onCommentClick,
   onShare,
 }: PostActionsProps) {
-  const isHaha = viewerReaction === "haha";
+  const isActive = Boolean(viewerReaction);
+  const activeReaction = REACTION_OPTIONS.find((reaction) => reaction.value === viewerReaction);
 
   return (
     <div className="bg-buddy-canvas/50 flex gap-1 px-2 py-2 dark:bg-[#11263c]">
       {/* Haha */}
-      <button
-        type="button"
-        onClick={() => onReact(postId, isHaha ? null : "haha")}
-        className={cn(
-          "flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-md border-none py-3 text-sm font-normal transition-colors",
-          isHaha
-            ? "text-buddy-heading bg-[#e4f1fd] dark:bg-[#123150]"
-            : "text-buddy-text bg-transparent hover:bg-[#e4f1fd] dark:hover:bg-[#123150]",
-        )}
-      >
-        <HahaIcon />
-        Haha
-      </button>
+      <div className="group relative flex-1">
+        <div className="absolute -top-12 left-1/2 z-20 hidden -translate-x-1/2 rounded-full bg-white p-2 shadow-lg group-hover:flex">
+          {REACTION_OPTIONS.map((reaction) => (
+            <button
+              key={reaction.value}
+              type="button"
+              title={reaction.label}
+              onClick={() => onReact(postId, reaction.value)}
+              className="hover:scale-110 px-1 text-xl transition-transform"
+            >
+              {reaction.emoji}
+            </button>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => onReact(postId, isActive ? null : "like")}
+          className={cn(
+            "flex w-full cursor-pointer items-center justify-center gap-2 rounded-md border-none py-3 text-sm font-normal transition-colors",
+            isActive
+              ? "text-buddy-heading bg-[#e4f1fd] dark:bg-[#123150]"
+              : "text-buddy-text bg-transparent hover:bg-[#e4f1fd] dark:hover:bg-[#123150]",
+          )}
+        >
+          {activeReaction ? <span>{activeReaction.emoji}</span> : <HahaIcon />}
+          {activeReaction ? activeReaction.label : "Like"}
+        </button>
+      </div>
 
       {/* Comment */}
       <button
