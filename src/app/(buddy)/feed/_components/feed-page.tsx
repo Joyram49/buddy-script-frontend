@@ -2,11 +2,12 @@
 
 import { FeedMobileHeader } from "./feed-mobile-header";
 import { FeedMobileNav } from "./feed-mobile-nav";
-import { FeedMainColumn } from "./feed-main-column";
+
 import { FeedNavbar } from "./navbar/FeedNavbar";
-import { FeedSidebarLeft } from "./feed-sidebar-left";
-import { FeedSidebarRight } from "./feed-sidebar-right";
+import { FeedSidebarLeft } from "./FeedSidebarLeft";
+import { FeedSidebarRight } from "./FeedSidebarRight";
 import { FeedThemeToggle } from "./feed-theme-toggle";
+import { FeedMainColumn } from "./content";
 
 export function FeedPage() {
   return (
@@ -21,13 +22,13 @@ export function FeedPage() {
       <div className="bg-background flex min-h-0 flex-1 flex-col overflow-hidden">
         <div className="mx-auto flex min-h-0 w-full max-w-[1160px] flex-1 px-4 py-2.5 xl:max-w-[1320px]">
           <div className="grid min-h-0 w-full gap-4 lg:grid-cols-12 lg:gap-6">
-            <div className="no-scrollbar hidden min-h-0 overflow-y-auto pt-20 pr-1 lg:col-span-3 lg:block">
+            <div className="no-scrollbar hidden min-h-0 overflow-y-auto pt-18 pr-1 lg:col-span-3 lg:block">
               <FeedSidebarLeft />
             </div>
-            <div className="no-scrollbar min-h-0 overflow-y-auto pt-20 lg:col-span-6">
+            <div className="no-scrollbar min-h-0 overflow-y-auto pt-18 lg:col-span-6">
               <FeedMainColumn />
             </div>
-            <div className="no-scrollbar hidden min-h-0 overflow-y-auto pt-20 pl-1 lg:col-span-3 lg:block">
+            <div className="no-scrollbar hidden min-h-0 overflow-y-auto pt-18 pl-1 lg:col-span-3 lg:block">
               <FeedSidebarRight />
             </div>
           </div>

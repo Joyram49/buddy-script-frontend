@@ -1,5 +1,5 @@
+import { buddyAsset } from "@/features/buddyscript/assets";
 import Image from "next/image";
-import LoginImg from "@/assets/images/login.png";
 
 /**
  * Left-column hero illustration.
@@ -12,8 +12,8 @@ export function LoginHeroImage() {
     <div className="lg:col-span-8">
       <div className="flex justify-start">
         <Image
-          src={LoginImg}
-          alt=""
+          src={buddyAsset("Login")}
+          alt="login-hero-img"
           width={633}
           height={480}
           style={{ width: "100%", height: "auto", maxWidth: "633px" }}

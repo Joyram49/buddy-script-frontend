@@ -25,13 +25,13 @@ export function FeedNavbar({
     <header
       className={cn(
         "hidden border-b shadow-[0_4px_16px_#F0F2F5] lg:block",
-        dark ? "border-white/10 bg-buddy-dark-surface" : "border-transparent bg-buddy-surface",
+        dark ? "bg-buddy-dark-surface border-white/10" : "bg-buddy-surface border-transparent",
       )}
     >
       <div className="mx-auto flex max-w-[1160px] items-center gap-6 px-4 py-2.5 xl:max-w-[1320px]">
         <Link href="/feed" className="shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={buddyAsset("images/logo.svg")} alt="" className="h-9 w-auto" />
+          <img src={buddyAsset("Logo")} alt="" className="h-9 w-auto" />
         </Link>
 
         <form
@@ -40,7 +40,7 @@ export function FeedNavbar({
         >
           <Search
             className={cn(
-              "pointer-events-none absolute left-4 top-1/2 h-[17px] w-[17px] -translate-y-1/2",
+              "pointer-events-none absolute top-1/2 left-4 h-[17px] w-[17px] -translate-y-1/2",
               dark ? "text-gray-400" : "text-[#666]",
             )}
           />
@@ -49,8 +49,10 @@ export function FeedNavbar({
             placeholder="input search text"
             aria-label="Search"
             className={cn(
-              "h-10 w-full rounded-full border-0 py-2 pl-11 pr-4 text-base outline-none transition focus:ring-2 focus:ring-buddy-accent/30",
-              dark ? "bg-white/10 text-white placeholder:text-gray-400" : "bg-buddy-input text-buddy-text",
+              "focus:ring-buddy-accent/30 h-10 w-full rounded-full border-0 py-2 pr-4 pl-11 text-base transition outline-none focus:ring-2",
+              dark
+                ? "bg-white/10 text-white placeholder:text-gray-400"
+                : "bg-buddy-input text-buddy-text",
             )}
           />
         </form>
@@ -87,7 +89,7 @@ export function FeedNavbar({
               aria-expanded={notifyOpen}
             >
               <Bell className="h-[22px] w-5" strokeWidth={1.2} />
-              <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-buddy-accent px-1 text-[10px] font-medium text-white">
+              <span className="bg-buddy-accent absolute top-0 right-0 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-medium text-white">
                 6
               </span>
             </button>
@@ -102,17 +104,17 @@ export function FeedNavbar({
             )}
           >
             <MessageCircle className="h-[22px] w-[23px]" strokeWidth={1.2} />
-            <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-buddy-accent px-1 text-[10px] font-medium text-white">
+            <span className="bg-buddy-accent absolute top-0 right-0 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-medium text-white">
               2
             </span>
           </Link>
 
-          <div className="relative ml-3 flex items-center gap-2 border-l border-buddy-divider pl-4 dark:border-white/10">
+          <div className="border-buddy-divider relative ml-3 flex items-center gap-2 border-l pl-4 dark:border-white/10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={buddyAsset("images/profile.png")}
+              src={buddyAsset("Profile")}
               alt=""
-              className="h-10 w-10 rounded-full object-cover ring-2 ring-white dark:ring-buddy-dark-surface"
+              className="dark:ring-buddy-dark-surface h-10 w-10 rounded-full object-cover ring-2 ring-white"
               onError={(e) => {
                 e.currentTarget.src =
                   "data:image/svg+xml," +
@@ -143,16 +145,16 @@ export function FeedNavbar({
             {profileOpen ? (
               <div
                 className={cn(
-                  "absolute right-0 top-full z-50 mt-2 w-72 rounded-md border p-4 shadow-lg",
+                  "absolute top-full right-0 z-50 mt-2 w-72 rounded-md border p-4 shadow-lg",
                   dark
-                    ? "translate-y-2 border-white/10 bg-buddy-dark-surface"
-                    : "translate-y-2 border-buddy-divider bg-buddy-surface",
+                    ? "bg-buddy-dark-surface translate-y-2 border-white/10"
+                    : "border-buddy-divider bg-buddy-surface translate-y-2",
                 )}
               >
                 <div className="mb-4 flex gap-2">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={buddyAsset("images/profile.png")}
+                    src={buddyAsset("Profile")}
                     alt=""
                     className="h-[54px] w-[54px] shrink-0 rounded-full object-cover"
                     onError={(e) => {
@@ -173,7 +175,7 @@ export function FeedNavbar({
                   <li>
                     <Link
                       href="#0"
-                      className="flex items-center justify-between text-[#666] hover:text-buddy-accent dark:text-gray-300"
+                      className="hover:text-buddy-accent flex items-center justify-between text-[#666] dark:text-gray-300"
                     >
                       <span className="flex items-center gap-2">
                         <span className="rounded-full bg-[#ebf2ff] p-2.5 dark:bg-white/10">
@@ -185,7 +187,7 @@ export function FeedNavbar({
                   <li>
                     <Link
                       href="#0"
-                      className="text-[#666] hover:text-buddy-accent dark:text-gray-300"
+                      className="hover:text-buddy-accent text-[#666] dark:text-gray-300"
                     >
                       Help & Support
                     </Link>
@@ -193,7 +195,7 @@ export function FeedNavbar({
                   <li>
                     <Link
                       href="#0"
-                      className="text-[#666] hover:text-buddy-accent dark:text-gray-300"
+                      className="hover:text-buddy-accent text-[#666] dark:text-gray-300"
                     >
                       Log Out
                     </Link>

@@ -14,22 +14,22 @@ export function NotificationPanel({ open, dark }: NotificationPanelProps) {
   return (
     <div
       className={cn(
-        "absolute right-0 top-full z-50 mt-2 w-[min(100vw-2rem,380px)] rounded-md border shadow-xl transition",
-        dark ? "border-white/10 bg-buddy-dark-surface" : "border-buddy-divider bg-buddy-surface",
+        "absolute top-full right-0 z-50 mt-2 w-[min(100vw-2rem,380px)] rounded-md border shadow-xl transition",
+        dark ? "bg-buddy-dark-surface border-white/10" : "border-buddy-divider bg-buddy-surface",
       )}
     >
-      <div className="flex items-center justify-between border-b border-buddy-divider p-4 dark:border-white/10">
+      <div className="border-buddy-divider flex items-center justify-between border-b p-4 dark:border-white/10">
         <h4 className={cn("text-base font-semibold", dark ? "text-white" : "text-buddy-heading")}>
           Notifications
         </h4>
-        <button type="button" className="p-1 text-buddy-subtle" aria-label="More">
+        <button type="button" className="text-buddy-subtle p-1" aria-label="More">
           <span className="inline-block h-1 w-1 rounded-full bg-current" />
         </button>
       </div>
-      <div className="flex gap-2 border-b border-buddy-divider p-3 dark:border-white/10">
+      <div className="border-buddy-divider flex gap-2 border-b p-3 dark:border-white/10">
         <button
           type="button"
-          className="rounded-md bg-buddy-accent px-4 py-1.5 text-sm font-medium text-white"
+          className="bg-buddy-accent rounded-md px-4 py-1.5 text-sm font-medium text-white"
         >
           All
         </button>
@@ -48,12 +48,12 @@ export function NotificationPanel({ open, dark }: NotificationPanelProps) {
           <div
             key={i}
             className={cn(
-              "flex gap-3 border-b border-buddy-divider p-3 last:border-0 dark:border-white/10",
+              "border-buddy-divider flex gap-3 border-b p-3 last:border-0 dark:border-white/10",
             )}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={buddyAsset(i % 2 === 0 ? "images/logo.svg" : "images/google.svg")}
+              src={buddyAsset(i % 2 === 0 ? "Logo" : "Google")}
               alt=""
               className="h-10 w-10 shrink-0 rounded-full object-cover"
             />
@@ -61,17 +61,17 @@ export function NotificationPanel({ open, dark }: NotificationPanelProps) {
               <p className={cn("text-sm leading-snug", dark ? "text-gray-200" : "text-buddy-text")}>
                 {i % 2 === 0 ? (
                   <>
-                    <span className="font-medium text-buddy-accent">Steve Jobs</span> posted a link in
-                    your timeline.
+                    <span className="text-buddy-accent font-medium">Steve Jobs</span> posted a link
+                    in your timeline.
                   </>
                 ) : (
                   <>
                     An admin changed the group{" "}
-                    <span className="font-medium text-buddy-accent">Freelacer usa</span>.
+                    <span className="text-buddy-accent font-medium">Freelacer usa</span>.
                   </>
                 )}
               </p>
-              <p className="mt-1 text-xs text-buddy-subtle">42 miniutes ago</p>
+              <p className="text-buddy-subtle mt-1 text-xs">42 miniutes ago</p>
             </div>
           </div>
         ))}

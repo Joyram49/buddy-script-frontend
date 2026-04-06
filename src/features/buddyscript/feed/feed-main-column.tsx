@@ -20,7 +20,7 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
         dark ? "bg-buddy-dark-surface" : "bg-buddy-surface shadow-[0_1px_3px_rgba(0,0,0,0.06)]",
       )}
     >
-      <div className="border-b border-buddy-divider px-6 pb-4 pt-6 dark:border-white/10">
+      <div className="border-buddy-divider border-b px-6 pt-6 pb-4 dark:border-white/10">
         <div className="flex items-start justify-between gap-3">
           <div className="flex gap-3">
             <div className="size-12 shrink-0 rounded-full bg-gradient-to-br from-slate-300 to-slate-400" />
@@ -28,15 +28,18 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
               <h4 className={cn("font-semibold", dark ? "text-white" : "text-[#212121]")}>
                 Karim Saif
               </h4>
-              <p className="text-sm text-buddy-muted">
-                5 minute ago . <Link href="#0" className="text-buddy-accent">Public</Link>
+              <p className="text-buddy-muted text-sm">
+                5 minute ago .{" "}
+                <Link href="#0" className="text-buddy-accent">
+                  Public
+                </Link>
               </p>
             </div>
           </div>
           <div className="relative">
             <button
               type="button"
-              className="p-1 text-buddy-subtle hover:text-buddy-text dark:hover:text-white"
+              className="text-buddy-subtle hover:text-buddy-text p-1 dark:hover:text-white"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
             >
@@ -45,8 +48,10 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
             {menuOpen ? (
               <ul
                 className={cn(
-                  "absolute right-0 top-full z-20 mt-1 min-w-[200px] rounded-md border py-2 shadow-lg",
-                  dark ? "border-white/10 bg-buddy-dark-surface" : "border-buddy-divider bg-buddy-surface",
+                  "absolute top-full right-0 z-20 mt-1 min-w-[200px] rounded-md border py-2 shadow-lg",
+                  dark
+                    ? "bg-buddy-dark-surface border-white/10"
+                    : "border-buddy-divider bg-buddy-surface",
                 )}
               >
                 {["Save Post", "Turn On Notification", "Hide", "Edit Post", "Delete Post"].map(
@@ -54,7 +59,7 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
                     <li key={t}>
                       <Link
                         href="#0"
-                        className="block px-4 py-2 text-sm text-[#666] hover:bg-buddy-canvas hover:text-buddy-accent dark:text-gray-300 dark:hover:bg-white/10"
+                        className="hover:bg-buddy-canvas hover:text-buddy-accent block px-4 py-2 text-sm text-[#666] dark:text-gray-300 dark:hover:bg-white/10"
                       >
                         {t}
                       </Link>
@@ -72,7 +77,7 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
           <div className="aspect-video w-full bg-gradient-to-br from-slate-200 to-slate-400 dark:from-slate-600 dark:to-slate-800">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={buddyAsset("images/timeline_img.png")}
+              src={buddyAsset("TimelineImg")}
               alt=""
               className="h-full w-full object-cover"
               onError={(e) => {
@@ -83,50 +88,55 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-buddy-divider px-6 py-4 dark:border-white/10">
+      <div className="border-buddy-divider flex flex-wrap items-center justify-between gap-3 border-b px-6 py-4 dark:border-white/10">
         <div className="flex items-center gap-1">
-          {["from-amber-200 to-orange-300", "from-pink-200 to-rose-400", "from-blue-200 to-indigo-400"].map(
-            (g, i) => (
-              <div
-                key={i}
-                className={cn("-ml-1 size-8 rounded-full border-2 border-white bg-gradient-to-br first:ml-0 dark:border-buddy-dark-surface", g)}
-              />
-            ),
-          )}
-          <span className="ml-2 text-sm text-buddy-muted">9+</span>
+          {[
+            "from-amber-200 to-orange-300",
+            "from-pink-200 to-rose-400",
+            "from-blue-200 to-indigo-400",
+          ].map((g, i) => (
+            <div
+              key={i}
+              className={cn(
+                "dark:border-buddy-dark-surface -ml-1 size-8 rounded-full border-2 border-white bg-gradient-to-br first:ml-0",
+                g,
+              )}
+            />
+          ))}
+          <span className="text-buddy-muted ml-2 text-sm">9+</span>
         </div>
-        <div className="flex gap-4 text-sm text-buddy-muted">
+        <div className="text-buddy-muted flex gap-4 text-sm">
           {index === 0 ? (
             <Link href="#0" className="hover:text-buddy-accent">
-              <span className="font-medium text-buddy-text dark:text-gray-200">12</span> Comment
+              <span className="text-buddy-text font-medium dark:text-gray-200">12</span> Comment
             </Link>
           ) : (
             <span>
-              <span className="font-medium text-buddy-text dark:text-gray-200">12</span> Comment
+              <span className="text-buddy-text font-medium dark:text-gray-200">12</span> Comment
             </span>
           )}
           <span>
-            <span className="font-medium text-buddy-text dark:text-gray-200">122</span> Share
+            <span className="text-buddy-text font-medium dark:text-gray-200">122</span> Share
           </span>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 border-b border-buddy-divider px-6 py-3 dark:border-white/10">
+      <div className="border-buddy-divider flex flex-wrap gap-2 border-b px-6 py-3 dark:border-white/10">
         <button
           type="button"
-          className="flex flex-1 min-w-[100px] items-center justify-center gap-2 rounded-md bg-buddy-canvas/80 py-2 text-sm font-medium text-buddy-heading dark:bg-white/10 dark:text-white"
+          className="bg-buddy-canvas/80 text-buddy-heading flex min-w-[100px] flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm font-medium dark:bg-white/10 dark:text-white"
         >
           <span className="text-lg">😄</span> Haha
         </button>
         <button
           type="button"
-          className="flex flex-1 min-w-[100px] items-center justify-center gap-2 rounded-md py-2 text-sm text-buddy-text dark:text-gray-200"
+          className="text-buddy-text flex min-w-[100px] flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm dark:text-gray-200"
         >
           Comment
         </button>
         <button
           type="button"
-          className="flex flex-1 min-w-[100px] items-center justify-center gap-2 rounded-md py-2 text-sm text-buddy-text dark:text-gray-200"
+          className="text-buddy-text flex min-w-[100px] flex-1 items-center justify-center gap-2 rounded-md py-2 text-sm dark:text-gray-200"
         >
           Share
         </button>
@@ -140,17 +150,17 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
               placeholder="Write a comment"
               rows={2}
               className={cn(
-                "w-full resize-none rounded-md border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-buddy-accent/30",
+                "focus:ring-buddy-accent/30 w-full resize-none rounded-md border px-3 py-2 text-sm outline-none focus:ring-2",
                 dark
                   ? "border-white/10 bg-white/5 text-white placeholder:text-gray-500"
                   : "border-buddy-border bg-buddy-surface text-buddy-text",
               )}
             />
             <div className="mt-2 flex justify-end gap-2">
-              <button type="button" className="p-1.5 text-buddy-muted hover:text-buddy-accent">
+              <button type="button" className="text-buddy-muted hover:text-buddy-accent p-1.5">
                 <Smile className="h-4 w-4" />
               </button>
-              <button type="button" className="p-1.5 text-buddy-muted hover:text-buddy-accent">
+              <button type="button" className="text-buddy-muted hover:text-buddy-accent p-1.5">
                 <ImageIcon className="h-4 w-4" />
               </button>
             </div>
@@ -158,19 +168,21 @@ function PostCard({ dark, index }: { dark: boolean; index: number }) {
         </div>
         <button
           type="button"
-          className="mt-3 text-sm font-medium text-buddy-accent hover:underline"
+          className="text-buddy-accent mt-3 text-sm font-medium hover:underline"
         >
           View 4 previous comments
         </button>
         <div className="mt-4 flex gap-3">
           <div className="size-10 shrink-0 rounded-full bg-gradient-to-br from-slate-300 to-slate-400" />
-          <div className="flex-1 rounded-md bg-buddy-canvas/60 p-3 dark:bg-white/5">
-            <p className="text-sm font-medium text-buddy-text dark:text-gray-100">Radovan SkillArena</p>
-            <p className="mt-1 text-sm leading-relaxed text-buddy-muted dark:text-gray-300">
+          <div className="bg-buddy-canvas/60 flex-1 rounded-md p-3 dark:bg-white/5">
+            <p className="text-buddy-text text-sm font-medium dark:text-gray-100">
+              Radovan SkillArena
+            </p>
+            <p className="text-buddy-muted mt-1 text-sm leading-relaxed dark:text-gray-300">
               It is a long established fact that a reader will be distracted by the readable content
               of a page when looking at its layout.
             </p>
-            <div className="mt-2 flex items-center gap-2 text-xs text-buddy-muted">
+            <div className="text-buddy-muted mt-2 flex items-center gap-2 text-xs">
               <span>Like.</span>
               <span>Reply.</span>
               <span>Share</span>
@@ -204,7 +216,7 @@ export function FeedMainColumn({ dark }: FeedMainColumnProps) {
               {i === 0 ? (
                 <button
                   type="button"
-                  className="absolute bottom-8 left-1/2 flex size-8 -translate-x-1/2 items-center justify-center rounded-full bg-buddy-accent text-white shadow-md"
+                  className="bg-buddy-accent absolute bottom-8 left-1/2 flex size-8 -translate-x-1/2 items-center justify-center rounded-full text-white shadow-md"
                 >
                   +
                 </button>
@@ -228,7 +240,7 @@ export function FeedMainColumn({ dark }: FeedMainColumnProps) {
               placeholder="Write something ..."
               rows={3}
               className={cn(
-                "w-full resize-none rounded-md border px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-buddy-accent/30",
+                "focus:ring-buddy-accent/30 w-full resize-none rounded-md border px-3 py-3 text-sm outline-none focus:ring-2",
                 dark
                   ? "border-white/10 bg-white/5 text-white placeholder:text-gray-500"
                   : "border-buddy-border bg-buddy-surface placeholder:text-buddy-muted",
@@ -236,36 +248,36 @@ export function FeedMainColumn({ dark }: FeedMainColumnProps) {
             />
           </div>
         </div>
-        <div className="mt-4 hidden flex-wrap items-center justify-between gap-3 border-t border-buddy-divider pt-4 dark:border-white/10 sm:flex">
+        <div className="border-buddy-divider mt-4 hidden flex-wrap items-center justify-between gap-3 border-t pt-4 sm:flex dark:border-white/10">
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] hover:bg-buddy-canvas dark:text-gray-300 dark:hover:bg-white/10"
+              className="hover:bg-buddy-canvas flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] dark:text-gray-300 dark:hover:bg-white/10"
             >
               <ImageIcon className="h-5 w-5" /> Photo
             </button>
             <button
               type="button"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] hover:bg-buddy-canvas dark:text-gray-300 dark:hover:bg-white/10"
+              className="hover:bg-buddy-canvas flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] dark:text-gray-300 dark:hover:bg-white/10"
             >
               <Video className="h-5 w-5" /> Video
             </button>
             <button
               type="button"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] hover:bg-buddy-canvas dark:text-gray-300 dark:hover:bg-white/10"
+              className="hover:bg-buddy-canvas flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] dark:text-gray-300 dark:hover:bg-white/10"
             >
               Event
             </button>
             <button
               type="button"
-              className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] hover:bg-buddy-canvas dark:text-gray-300 dark:hover:bg-white/10"
+              className="hover:bg-buddy-canvas flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#666] dark:text-gray-300 dark:hover:bg-white/10"
             >
               Article
             </button>
           </div>
           <button
             type="button"
-            className="flex items-center gap-2 rounded-md bg-buddy-accent px-5 py-2 text-sm font-medium text-white hover:shadow-md"
+            className="bg-buddy-accent flex items-center gap-2 rounded-md px-5 py-2 text-sm font-medium text-white hover:shadow-md"
           >
             <Send className="h-4 w-4" />
             Post

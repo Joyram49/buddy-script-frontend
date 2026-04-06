@@ -1,8 +1,9 @@
 import Image from "next/image";
-import Logo from "@/assets/images/logo.svg";
+
 import { GoogleSignInButton } from "./GoogleSignInButton";
 import { OrDivider } from "./OrDivider";
 import { LoginForm } from "./LoginForm";
+import { buddyAsset } from "@/features/buddyscript/assets";
 
 export function LoginCard() {
   return (
@@ -11,7 +12,7 @@ export function LoginCard() {
         {/* Logo — _social_login_left_logo _mar_b28 */}
         <div className="mb-7 flex justify-center">
           <Image
-            src={Logo}
+            src={buddyAsset("Logo")}
             alt="Buddy Script"
             width={161}
             height={50}

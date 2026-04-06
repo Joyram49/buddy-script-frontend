@@ -1,20 +1,14 @@
-"use client";
-
 import Link from "next/link";
-import { Bookmark, Gamepad2, Settings, UserPlus, Users } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-const linkClass =
-  "flex items-center gap-3 rounded-md py-2 text-sm font-medium text-buddy-label transition hover:text-buddy-accent";
+import Image from "next/image";
+import { buddyAsset } from "@/features/buddyscript/assets";
 
 const cardClass =
   "rounded-md bg-buddy-surface p-6 shadow-[0_1px_3px_rgba(0,0,0,0.06)] dark:shadow-none";
 
-const iconMuted = "text-buddy-muted";
-
 export function FeedSidebarLeft() {
   return (
     <aside className="space-y-4">
+      {/* explore features  */}
       <div className={cardClass}>
         <h4 className="text-buddy-heading mb-6 text-xl font-medium">Explore</h4>
         <ul className="space-y-1">
@@ -195,9 +189,9 @@ export function FeedSidebarLeft() {
                   viewBox="0 0 22 24"
                   fill="none"
                   stroke="#666"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
                   <polyline points="17 21 17 13 7 13 7 21"></polyline>
@@ -210,25 +204,32 @@ export function FeedSidebarLeft() {
         </ul>
       </div>
 
+      {/* suggested people */}
       <div className={cardClass}>
         <div className="mb-6 flex items-center justify-between">
           <h4 className="text-buddy-heading text-xl font-medium">Suggested People</h4>
-          <Link href="#0" className="text-buddy-accent text-sm">
+          <Link href="#0" className="text-buddy-accent text-sm font-medium">
             See All
           </Link>
         </div>
         {[
-          { name: "Steve Jobs", role: "CEO of Apple" },
-          { name: "Ryan Roslansky", role: "CEO of Linkedin" },
-          { name: "Dylan Field", role: "CEO of Figma" },
+          { name: "Steve Jobs", role: "CEO of Apple", src: buddyAsset("People1") },
+          {
+            name: "Ryan Roslansky",
+            role: "CEO of Linkedin",
+            src: buddyAsset("People2"),
+          },
+          { name: "Dylan Field", role: "CEO of Figma", src: buddyAsset("People3") },
         ].map((p) => (
           <div key={p.name} className="mb-4 flex items-center justify-between gap-2 last:mb-0">
             <div className="flex min-w-0 items-center gap-3">
-              <div className="from-buddy-border to-buddy-muted size-12 shrink-0 rounded-full bg-linear-to-br" />
+              <div className="from-buddy-border to-buddy-muted size-10 shrink-0 rounded-full bg-linear-to-br">
+                <Image src={p.src} alt={p.name} width={40} height={40} priority />
+              </div>
               <div className="min-w-0">
                 <Link
                   href="#0"
-                  className="text-buddy-heading hover:text-buddy-accent block truncate font-medium"
+                  className="text-buddy-heading hover:text-buddy-accent block truncate font-medium transition-colors duration-200 ease-in-out"
                 >
                   {p.name}
                 </Link>
@@ -237,7 +238,7 @@ export function FeedSidebarLeft() {
             </div>
             <Link
               href="#0"
-              className="border-buddy-accent text-buddy-accent hover:bg-buddy-accent shrink-0 rounded-md border px-3 py-1 text-xs font-medium hover:text-white"
+              className="border-buddy-accent text-buddy-accent hover:bg-buddy-accent shrink-0 rounded-md border px-3 py-1 text-xs font-medium transition-colors duration-200 ease-in-out hover:text-white"
             >
               Connect
             </Link>
@@ -245,6 +246,7 @@ export function FeedSidebarLeft() {
         ))}
       </div>
 
+      {/* events */}
       <div className={cardClass}>
         <div className="mb-6 flex items-center justify-between">
           <h4 className="text-buddy-heading text-xl font-medium">Events</h4>
@@ -258,22 +260,32 @@ export function FeedSidebarLeft() {
             href="#0"
             className="border-buddy-border mb-4 block overflow-hidden rounded-md border last:mb-0"
           >
-            <div className="from-buddy-border to-buddy-subtle dark:from-buddy-muted/40 dark:to-buddy-dark-surface aspect-[2/1] bg-gradient-to-br" />
+            <div className="from-buddy-border to-buddy-subtle dark:from-buddy-muted/40 dark:to-buddy-dark-surface relative aspect-2/1 bg-linear-to-br">
+              <Image
+                src={buddyAsset("FeedEvent1")}
+                alt={"Feed-event"}
+                fill
+                priority
+                className="absolute w-full bg-cover"
+              />
+            </div>
             <div className="flex gap-3 p-3">
-              <div className="bg-buddy-canvas flex flex-col items-center rounded px-2 py-1 text-center dark:bg-white/10">
-                <span className="text-buddy-accent text-lg font-semibold">10</span>
-                <span className="text-buddy-muted text-xs">Jul</span>
+              <div className="bg-buddy-green flex flex-col items-center rounded px-2 text-center">
+                <span className="text-lg font-semibold text-white">10</span>
+                <span className="text-xs text-white">Jul</span>
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-buddy-heading text-sm font-medium">
+                <p className="text-buddy-heading text-base font-medium">
                   No more terrorism no more cry
                 </p>
               </div>
             </div>
             <hr className="border-buddy-divider" />
-            <div className="flex items-center justify-between px-3 py-2 text-xs">
-              <span className="text-buddy-muted">17 People Going</span>
-              <span className="text-buddy-accent font-medium">Going</span>
+            <div className="mt-1 flex items-center justify-between px-3 py-2 text-xs">
+              <span className="text-buddy-muted font-medium">17 People Going</span>
+              <span className="text-buddy-accent bg-buddy-secondary border-buddy-accent hover:bg-buddy-accent border px-4 py-1 font-medium transition-colors duration-200 ease-in-out hover:text-white">
+                Going
+              </span>
             </div>
           </Link>
         ))}

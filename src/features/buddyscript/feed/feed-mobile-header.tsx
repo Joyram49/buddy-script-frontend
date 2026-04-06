@@ -14,13 +14,13 @@ export function FeedMobileHeader({ dark }: FeedMobileHeaderProps) {
     <div
       className={cn(
         "border-b lg:hidden",
-        dark ? "border-white/10 bg-buddy-dark-surface" : "border-buddy-divider bg-buddy-surface",
+        dark ? "bg-buddy-dark-surface border-white/10" : "border-buddy-divider bg-buddy-surface",
       )}
     >
       <div className="mx-auto flex max-w-[1320px] items-center justify-between px-4 py-3">
         <Link href="/feed">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={buddyAsset("images/logo.svg")} alt="" className="h-8 w-auto" />
+          <img src={buddyAsset("Logo")} alt="" className="h-8 w-auto" />
         </Link>
         <Link
           href="#0"

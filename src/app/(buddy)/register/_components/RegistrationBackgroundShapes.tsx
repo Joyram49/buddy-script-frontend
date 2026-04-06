@@ -1,10 +1,5 @@
 import Image from "next/image";
-import Shape1 from "@/assets/images/shape1.svg";
-import DarkShape from "@/assets/images/dark_shape.svg";
-import Shape2 from "@/assets/images/shape2.svg";
-import DarkShape1 from "@/assets/images/dark_shape1.svg";
-import Shape3 from "@/assets/images/shape3.svg";
-import DarkShape2 from "@/assets/images/dark_shape2.svg";
+import { buddyAsset } from "@/features/buddyscript/assets";
 
 /**
  * Decorative background shapes — identical to LoginBackgroundShapes.
@@ -31,8 +26,8 @@ export function RegistrationBackgroundShapes() {
         style={{ maxWidth: "100vw" }}
       >
         <Image
-          src={Shape1}
-          alt=""
+          src={buddyAsset("Shape1")}
+          alt="Shape-1"
           width={800}
           height={600}
           style={shapeImgStyle}
@@ -40,8 +35,8 @@ export function RegistrationBackgroundShapes() {
           unoptimized
         />
         <Image
-          src={DarkShape}
-          alt=""
+          src={buddyAsset("DarkShape")}
+          alt="Dark-shape"
           width={800}
           height={600}
           style={shapeOverlayStyle}
@@ -55,9 +50,16 @@ export function RegistrationBackgroundShapes() {
         className="pointer-events-none absolute top-0 right-0 -z-10 hidden overflow-hidden sm:block"
         style={{ maxWidth: "50vw" }}
       >
-        <Image src={Shape2} alt="" width={800} height={600} style={shapeImgStyle} unoptimized />
         <Image
-          src={DarkShape1}
+          src={buddyAsset("Shape2")}
+          alt="Shape-2"
+          width={800}
+          height={600}
+          style={shapeImgStyle}
+          unoptimized
+        />
+        <Image
+          src={buddyAsset("DarkShape1")}
           alt=""
           width={800}
           height={600}
@@ -71,10 +73,17 @@ export function RegistrationBackgroundShapes() {
         className="pointer-events-none absolute bottom-0 -z-10 hidden overflow-hidden lg:block"
         style={{ right: "17%", maxWidth: "40vw" }}
       >
-        <Image src={Shape3} alt="" width={800} height={600} style={shapeImgStyle} unoptimized />
         <Image
-          src={DarkShape2}
-          alt=""
+          src={buddyAsset("Shape3")}
+          alt="shape-3"
+          width={800}
+          height={600}
+          style={shapeImgStyle}
+          unoptimized
+        />
+        <Image
+          src={buddyAsset("DarkShape2")}
+          alt="Dark-shape-2"
           width={800}
           height={600}
           style={{ ...shapeOverlayStyle, opacity: 0.8 }}

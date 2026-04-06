@@ -8,14 +8,15 @@
 :root {
   --buddy-canvas: oklch(0.965 0.004 264);
   --buddy-surface: oklch(1 0 0);
-  --buddy-muted: oklch(0.551 0 0);
-  --buddy-heading: oklch(0.32 0.045 75);
+  --buddy-muted: oklch(0.633 0 0);
+  --buddy-heading: oklch(0.248 0 0);
   --buddy-text: oklch(0.37 0.02 264);
   --buddy-label: oklch(0.45 0.02 250);
   --buddy-accent: oklch(0.59 0.2 252);
   --buddy-border: oklch(0.92 0.005 264);
   --buddy-divider: oklch(0.89 0.005 264);
   --buddy-subtle: oklch(0.76 0 0);
+  --buddy-secondary: oklch(0.979 0.01 247.9);
   --buddy-input: oklch(0.97 0.002 264);
   --buddy-dark-bg: oklch(0.22 0.045 252);
   --buddy-dark-surface: oklch(0.3 0.035 252);
@@ -25,8 +26,8 @@
 .dark {
   --buddy-canvas: oklch(0.2 0.035 252);
   --buddy-surface: oklch(0.26 0.03 252);
-  --buddy-muted: oklch(0.62 0.02 264);
-  --buddy-heading: oklch(0.97 0.005 264);
+  --buddy-muted: lch(57.48 0 0);
+  --buddy-heading: oklch(1 0 0);
   --buddy-text: oklch(0.88 0.02 264);
   --buddy-label: oklch(0.72 0.02 264);
   --buddy-accent: oklch(0.72 0.16 252);
@@ -34,6 +35,7 @@
   --buddy-divider: oklch(1 0 0 / 14%);
   --buddy-subtle: oklch(0.48 0.02 264);
   --buddy-input: oklch(0.28 0.03 252);
+  --buddy-secondary: oklch(0.979 0.01 247.9)
   --buddy-dark-bg: oklch(0.18 0.04 252);
   --buddy-dark-surface: oklch(0.3 0.032 252);
   --buddy-green: oklch(0.75 0.17 165);
@@ -98,6 +100,7 @@
   --color-buddy-dark-bg: var(--buddy-dark-bg);
   --color-buddy-dark-surface: var(--buddy-dark-surface);
   --color-buddy-green: var(--buddy-green);
+  --color-buddy-secondary: var(--buddy-secondary);
 }
 
 /* shadcn/ui semantic tokens (light) — OKLCH, aligned with Buddy blues */

@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import Logo from "@/assets/images/logo.svg";
 
 import SearchForm from "./SearchForm";
 import NavLinks from "./NavLinks";
+import { buddyAsset } from "@/features/buddyscript/assets";
 
 export function FeedNavbar() {
   return (
@@ -18,7 +18,13 @@ export function FeedNavbar() {
     >
       <div className="mx-auto flex max-w-[1160px] items-center gap-6 px-4 py-2.5 xl:max-w-[1320px]">
         <Link href="/feed" className="shrink-0">
-          <Image src={Logo} alt="Buddy Logo" width={150} height={36} className="h-9 w-auto" />
+          <Image
+            src={buddyAsset("Logo")}
+            alt="Buddy Logo"
+            width={150}
+            height={36}
+            className="h-9 w-auto"
+          />
         </Link>
 
         <div className="flex w-full items-center justify-between">

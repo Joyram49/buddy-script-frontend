@@ -1,5 +1,3 @@
-/** Static files under `public/buddyscript/assets`. */
-export function buddyAsset(relativePath: string): string {
-  const trimmed = relativePath.replace(/^\/+/, "");
-  return `/buddyscript/assets/${trimmed}`;
-}
+import * as images from "@/assets";
+
+export const buddyAsset = (name: keyof typeof images) => images[name];

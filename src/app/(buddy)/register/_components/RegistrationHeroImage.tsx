@@ -1,5 +1,5 @@
+import { buddyAsset } from "@/features/buddyscript/assets";
 import Image from "next/image";
-import RegistrationImg from "@/assets/images/registration.png";
 
 /**
  * Left-column hero illustration.
@@ -11,8 +11,8 @@ export function RegistrationHeroImage() {
     <div className="lg:col-span-8">
       <div className="flex w-full justify-center">
         <Image
-          src={RegistrationImg}
-          alt=""
+          src={buddyAsset("Registration")}
+          alt="buddy-registration"
           width={850}
           height={637}
           style={{ width: "100%", height: "auto", maxWidth: "850px" }}

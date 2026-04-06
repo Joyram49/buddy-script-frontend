@@ -153,7 +153,7 @@ const NavLinks = () => {
               className="flex items-center gap-2 rounded-lg p-1 transition hover:bg-black/5 dark:hover:bg-white/10"
             >
               <Image
-                src={buddyAsset("images/profile.png")}
+                src={buddyAsset("Profile")}
                 alt="Profile"
                 width={40}
                 height={40}
@@ -188,7 +188,7 @@ const NavLinks = () => {
           >
             <div className="flex items-center gap-3 p-2">
               <Image
-                src={buddyAsset("images/profile.png")}
+                src={buddyAsset("Profile")}
                 alt="Profile"
                 width={48}
                 height={48}
