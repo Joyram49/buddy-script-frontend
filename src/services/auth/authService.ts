@@ -14,6 +14,21 @@ type SignUpArgs = {
   payload: z.infer<typeof SignUpSchema>;
 };
 
+const parseJsonResponse = async <T>(res: Response): Promise<T> => {
+  const raw = await res.text();
+  if (!raw) {
+    return {} as T;
+  }
+
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    throw new Error(
+      `Received non-JSON response (${res.status}) from ${res.url}. Check NEXT_PUBLIC_BACKEND_BASE_URL in production.`,
+    );
+  }
+};
+
 // Set access token to cookies
 export const setAccessToken = async (accessToken: string) => {
   (await cookies()).set("accessToken", accessToken, {
@@ -44,7 +59,11 @@ export const signUpAction = async ({ payload }: SignUpArgs) => {
       },
       body: JSON.stringify(payload),
     });
-    const result = await res.json();
+    const result = await parseJsonResponse<{
+      success?: boolean;
+      data?: { otpToken?: { token?: string } };
+      message?: string;
+    }>(res);
 
     if (result?.success) {
       const cookieStore = await cookies();
@@ -68,7 +87,11 @@ export const loginAction = async ({ payload }: LoginUserArgs): Promise<AuthSessi
       body: JSON.stringify(payload),
     });
 
-    const result = await res.json();
+    const result = await parseJsonResponse<{
+      success?: boolean;
+      data?: { accessToken?: string; user?: User };
+      message?: string;
+    }>(res);
 
     if (!res.ok || !result.success) {
       throw new Error(result.message || "Login failed");
@@ -126,7 +149,11 @@ export const getCurrentUser = async (): Promise<IMyProfile> => {
       },
       next: { revalidate: 300 },
     });
-    const result = await res.json().catch(() => ({}));
+    const result = await parseJsonResponse<{
+      success?: boolean;
+      data?: { user?: IMyProfile };
+      message?: string;
+    }>(res).catch(() => ({}));
 
     if (!res.ok || !result.success) {
       throw new Error(result.message || `Failed to fetch user (Status: ${res.status})`);
