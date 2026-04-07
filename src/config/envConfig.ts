@@ -3,9 +3,11 @@
  */
 
 const getBackendBaseUrl = () => {
-  console.log("process.env.NEXT_PUBLIC_BACKEND_BASE_URL", process.env.NEXT_PUBLIC_BACKEND_BASE_URL);
   if (process.env.NEXT_PUBLIC_BACKEND_BASE_URL) {
     return process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+  }
+  if (process.env.BACKEND_BASE_URL) {
+    return process.env.BACKEND_BASE_URL;
   }
   if (typeof window !== "undefined") {
     return `${window.location.origin}`;
