@@ -67,7 +67,10 @@ export const signUpAction = async ({ payload }: SignUpArgs) => {
 
     if (result?.success) {
       const cookieStore = await cookies();
-      cookieStore.set("otpToken", result?.data?.otpToken?.token);
+      const otpToken = result?.data?.otpToken?.token;
+      if (otpToken) {
+        cookieStore.set("otpToken", otpToken);
+      }
     }
 
     return result;
